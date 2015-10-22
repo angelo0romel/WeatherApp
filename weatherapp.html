@@ -29,64 +29,62 @@
 	</head>
 
 	<body>
-
-		<div data-role="page" id="home">
+		<!--Main Page-->
+		<div data-role = "page" id = "main">
 			<div data-role="header">
 				<h1>
 					<span style="color:#99EB99;">My</span>Weather
 				</h1>
 			</div>
 
-			<div data-role="content">
+			<div data-role = "content">
 				<div>
-					<p>
-						<br/>
-						<img src="img/yellow_sun.png" alt="yellow happy sun :)" class="centerHorizontal" />	
-						<br/>
-						<span style="text-align: center; display: block; margin-left: 10px; margin-right: 10px">
-							Login to MyWeather to get your recent and stored locations on multiple devices.			
-						</span>								
-					</p>						
+					<img src="img/yellow_sun.png" alt="yellow happy sun :)" class="centerHorizontal" />	
+					<br/>
+					<span style="text-align: center; display: block; margin-left: 10px; margin-right: 10px; font-size: 90%">
+						Pressing on the padlock icon will login you in to the MyWeather app so you can get your recent and stored locations to this device.	Or you can use the app as a guest by pressing on the person icon below.		
+					</span>					
 				</div>
 			</div>
 
-			<div data-role="footer" data-position="fixed">
-				<div class="centerBtn">
-					<a href="#login" data-role="button">
-						<img src="img/lock.png" alt="#login" />
-					</a>
-					<a href="#" data-role="button">
-						<img src="img/person.png" alt="#guest" />
-					</a>
-				<div>
+			<div data-role = "footer" data-position = "fixed" class = "centerBtn">
+				<a href = "#login" data-role = "button">
+					<img src="img/lock.png" alt="login" />
+				</a>
+				<a href="" data-role="button">
+					<img src="img/person.png" alt="#guest" />
+				</a>
 			</div>
 		</div>
 
-		<div data-role="page" id="login">
-			<div data-role="header">
+		<!--Login Page-->
+		<div data-role = "page" id = "login">
+			<div data-role = "header">
 				<h1>
-					<span style="color:#99EB99;">My</span>Weather
+					<span style = "color:#99EB99;">My</span>Weather
 				</h1>
 			</div>
 
-			<div data-role="content">
-				
+			<div data-role = "content">
+				<p>
+					<h1 style = "text-align: center;">
+						<span style = "color: #99EB99;">L</span>ogi<span style = "color: #FFDB4D">n</span>
+					</h1>
+				</p>
+				<p>
+					<form method = "post">
+						User Name
+						<input type = "text" />					
+						Password
+						<input type = "password" />
+						<button type = "submit">Login</button>
+					</form>
+				</p>
 			</div>
 
-			<div data-role="footer" data-position="fixed">
-				
+			<div data-role = "footer" data-position = "fixed" class = "centerBtn">
+				<a href = "#main" data-role = "button"><img src = "img/refresh.png" /></a>
 			</div>
 		</div>
-
-		
-
-		<!--
-		Start of script ----------------------------------------------------------------------
-		-->
-		<script>
-		</script>
-		<!--
-		End of script-------------------------------------------------------------------------
-		-->
 	</body>
 </html>
