@@ -10,6 +10,14 @@
         <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
         <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
         <style>
+        	.ui-header, .ui-content, .ui-footer{
+        		text-shadow: none;
+        	}
+
+        	.ui-button{
+        		background: #FFAD33;
+        	}
+
         	.centerHorizontal{
         		display: block;
         		margin: auto; 
@@ -35,18 +43,24 @@
 			<div data-role = "content">
 				<div>
 					<p>
-						<p>
-							<img src = "img/yellow_sun.png" alt = "yellow happy sun :)" class = "centerHorizontal" />
-						<p>
-					</p>
+						<br/>
+						<img src = "img/yellow_sun.png" alt = "yellow happy sun :)" class = "centerHorizontal" />	
+						<br/>
+						<span style = "text-align: center; display: block; margin-left: 10px; margin-right: 10px">
+							Login to MyWeather to get your recent and stored locations on multiple devices.			
+						</span>									
+					</p>						
 				</div>
 			</div>
 
 			<div data-role = "footer" data-position = "fixed">
 				<div class = "centerBtn">
-					<button>
-						Button
-					</button>
+					<a href = "#" data-role = "button">
+						Login
+					</a>
+					<a href = "#" data-role = "button">
+						Guest
+					</a>
 				<div>
 			</div>
 		</div>
