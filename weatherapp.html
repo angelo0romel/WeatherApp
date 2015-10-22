@@ -14,10 +14,6 @@
         		text-shadow: none;
         	}
 
-        	.ui-button{
-        		background: #FFAD33;
-        	}
-
         	.centerHorizontal{
         		display: block;
         		margin: auto; 
@@ -33,45 +29,64 @@
 	</head>
 
 	<body>
-		<div data-role = "page" id = "home">
-			<div data-role = "header">
+
+		<div data-role="page" id="home">
+			<div data-role="header">
 				<h1>
-					<span style = "color:#99EB99;">My</span>Weather
+					<span style="color:#99EB99;">My</span>Weather
 				</h1>
 			</div>
 
-			<div data-role = "content">
+			<div data-role="content">
 				<div>
 					<p>
 						<br/>
-						<img src = "img/yellow_sun.png" alt = "yellow happy sun :)" class = "centerHorizontal" />	
+						<img src="img/yellow_sun.png" alt="yellow happy sun :)" class="centerHorizontal" />	
 						<br/>
-						<span style = "text-align: center; display: block; margin-left: 10px; margin-right: 10px">
+						<span style="text-align: center; display: block; margin-left: 10px; margin-right: 10px">
 							Login to MyWeather to get your recent and stored locations on multiple devices.			
-						</span>									
+						</span>								
 					</p>						
 				</div>
 			</div>
 
-			<div data-role = "footer" data-position = "fixed">
-				<div class = "centerBtn">
-					<a href = "#" data-role = "button">
-						Login
+			<div data-role="footer" data-position="fixed">
+				<div class="centerBtn">
+					<a href="#login" data-role="button">
+						<img src="img/lock.png" alt="#login" />
 					</a>
-					<a href = "#" data-role = "button">
-						Guest
+					<a href="#" data-role="button">
+						<img src="img/person.png" alt="#guest" />
 					</a>
 				<div>
 			</div>
 		</div>
 
+		<div data-role="page" id="login">
+			<div data-role="header">
+				<h1>
+					<span style="color:#99EB99;">My</span>Weather
+				</h1>
+			</div>
+
+			<div data-role="content">
+				
+			</div>
+
+			<div data-role="footer" data-position="fixed">
+				
+			</div>
+		</div>
+
+		
+
 		<!--
-		Start of script
+		Start of script ----------------------------------------------------------------------
 		-->
 		<script>
 		</script>
 		<!--
-		End of script
+		End of script-------------------------------------------------------------------------
 		-->
 	</body>
 </html>
