@@ -3,39 +3,61 @@
 	<head>
 		<meta name = "viewport" content = "initial-scale = 1" />
 		<meta name = "author/s" content = "Angelo Romel Lopez(B00285812), Freddy Lam(B00)" />
-		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+		<!--<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />-->
+		<link rel="stylesheet" href="css/angelo_ice_blue.min.css" />
+		<link rel="stylesheet" href="css/jquery.mobile.icons.min.css" />
+		<link rel="stylesheet" href="css/angelostruct.css" />
         <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
         <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
         <style>
-        	.centerStretch{
-        		padding: 0;
-        		margin-left: auto; 
-        		margin-right: auto; 
-        		margin-top: 5px
+        	.centerHorizontal{
+        		display: block;
+        		margin: auto; 
+        		height: 55%;
+        		width: 55%;
         	}
 
         	.centerBtn{
         		display:block;
         		text-align: center;
         	}
+
+        	.thickBtn{
+        		padding: 30px;
+        	}
         </style>
 	</head>
 
 	<body>
-		<div data-role = "page" id = "home" data-theme = "a">
+		<div data-role = "page" id = "home">
 			<div data-role = "header">
 				<h1>
-					Weather App
+					<span style = "color:#99EB99;">My</span>Weather
 				</h1>
 			</div>
 
 			<div data-role = "content">
+				<div>
+					<p>
+						<p>
+							<img src = "img/yellow_sun.png" alt = "yellow happy sun :)" class = "centerHorizontal" />
+						<p>
+					</p>
+				</div>
 			</div>
 
 			<div data-role = "footer" data-position = "fixed">
-				<h4>
-					Footer
-				</h4>
+				<div class = "centerBtn">
+					<button>
+						Button1
+					</button>
+					<button>
+						Button2
+					</button>
+					<button>
+						Button3
+					</button>
+				<div>
 			</div>
 		</div>
 
