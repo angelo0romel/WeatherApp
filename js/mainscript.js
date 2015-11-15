@@ -151,43 +151,22 @@ Display the five day weather forecast of a selected city.
 */
 function showWeatherByCity(){
 	var list = $("#forecastlist");
-	if(navigator.geolocation){
-                navigator.geolocation.getCurrentPosition(
-                    function(position){//run this function if location is available.	
-                        $.getJSON("http://api.openweathermap.org/data/2.5/forecast?q=" + currentCity + "," + currentCountry + "&units=metric&appid=ccaf6faaeacdea9f10abdff2f83b0e60", function(data){
-							$("#cityname").text(data.city.name + ", ");
-							$("#countrycode").text(data.city.country);
-							for(var i = 0; i < data.list.length; i ++){
-								list.append("<li><span style = 'font-size:200%;'>" + getDay(new Date(data.list[i].dt * 1000).getDay()) + "&nbsp;&nbsp;<span style = 'font-size:60%;'>" + new Date(data.list[i].dt * 1000).getHours() + ":" + zeroPrefix(new Date(data.list[i].dt * 1000).getMinutes()) + "</span>" + "</span>" + "</li>");
-								list.append("<li style = 'font-size:150%;'>" + data.list[i].weather[0].main + "/" + data.list[i].weather[0].description +  "</li>");
-								list.append("<li style = 'text-align:right;'>High <span style = 'font-size:200%;'>" + data.list[i].main.temp_max + " C</span>" + "</li>");
-								list.append("<li style = 'text-align:right;'>Low <span style = 'font-size:200%;'>" + data.list[i].main.temp_min + " C</span>" + "</li><br/>");
-								list.append("<li>Wind Speed > <span style = 'font-size:150%;'>" + data.list[i].wind.speed + "</span> m/s" + "</li>");
-								list.append("<li>Wind Direction > <span style = 'font-size:150%;'>" + data.list[i].wind.deg + "</span> degrees" + "</li>");
+    $.getJSON("http://api.openweathermap.org/data/2.5/forecast?q=" + currentCity + "," + currentCountry + "&units=metric&appid=ccaf6faaeacdea9f10abdff2f83b0e60", function(data){
+	$("#cityname").text(data.city.name + ", ");
+	$("#countrycode").text(data.city.country);
+	for(var i = 0; i < data.list.length; i ++){
+		list.append("<li><span style = 'font-size:200%;'>" + getDay(new Date(data.list[i].dt * 1000).getDay()) + "&nbsp;&nbsp;<span style = 'font-size:60%;'>" + new Date(data.list[i].dt * 1000).getHours() + ":" + zeroPrefix(new Date(data.list[i].dt * 1000).getMinutes()) + "</span>" + "</span>" + "</li>");
+		list.append("<li style = 'font-size:150%;'>" + data.list[i].weather[0].main + "/" + data.list[i].weather[0].description +  "</li>");
+		list.append("<li style = 'text-align:right;'>High <span style = 'font-size:200%;'>" + data.list[i].main.temp_max + " C</span>" + "</li>");
+		list.append("<li style = 'text-align:right;'>Low <span style = 'font-size:200%;'>" + data.list[i].main.temp_min + " C</span>" + "</li><br/>");
+		list.append("<li>Wind Speed > <span style = 'font-size:150%;'>" + data.list[i].wind.speed + "</span> m/s" + "</li>");
+		list.append("<li>Wind Direction > <span style = 'font-size:150%;'>" + data.list[i].wind.deg + "</span> degrees" + "</li>");
 
-								list.append("<p class = 'horizontalline'></p>");
-							}
-							saveLocation(data.city.name, data.city.country, data.city.id);
-							updateLocationList();
-						});
-                    },
-                    function(error){//show error message if an error is encountered.
-                        switch(error.code){
-                            case error.TIMEOUT:                                
-                                break;
-                            case error.POSITION_UNAVAILABLE:                                
-                                break;
-                            case error.PERMISSION_DENIED:
-                                break;
-                            case error.UNKNOWN_ERROR:
-                                break;
-                        }
-                    }
-                );
-            }
-            else{
-            	showMessage("Unable to determine your location. Make sure that location services is turned on.");
-            }
+		list.append("<p class = 'horizontalline'></p>");
+	}
+	saveLocation(data.city.name, data.city.country, data.city.id);
+	updateLocationList();
+	});
 }
 
 /*
@@ -196,42 +175,42 @@ Display the five day weather forecast of a geolocation latitude and longitude.
 function showWeatherByGeoCoord() {   
 	var list = $("#forecastlist");
 	if(navigator.geolocation){
-                navigator.geolocation.getCurrentPosition(
-                    function(position){//run this function if location is available.	
-                        $.getJSON("http://api.openweathermap.org/data/2.5/forecast?lat=" + position.coords.latitude + "&lon=" + position.coords.longitude + "&units=metric&appid=ccaf6faaeacdea9f10abdff2f83b0e60", function(data){
-							$("#cityname").text(data.city.name + ", ");
-							$("#countrycode").text(data.city.country);
-							for(var i = 0; i < data.list.length; i ++){
-								list.append("<li><span style = 'font-size:200%;'>" + getDay(new Date(data.list[i].dt * 1000).getDay()) + "&nbsp;&nbsp;<span style = 'font-size:60%;'>" + new Date(data.list[i].dt * 1000).getHours() + ":" + zeroPrefix(new Date(data.list[i].dt * 1000).getMinutes()) + "</span>" + "</span>" + "</li>");
-								list.append("<li style = 'font-size:150%;'>" + data.list[i].weather[0].main + "/" + data.list[i].weather[0].description +  "</li>");
-								list.append("<li style = 'text-align:right;'>High <span style = 'font-size:200%;'>" + data.list[i].main.temp_max + " C</span>" + "</li>");
-								list.append("<li style = 'text-align:right;'>Low <span style = 'font-size:200%;'>" + data.list[i].main.temp_min + " C</span>" + "</li><br/>");
-								list.append("<li>Wind Speed > <span style = 'font-size:150%;'>" + data.list[i].wind.speed + "</span> m/s" + "</li>");
-								list.append("<li>Wind Direction > <span style = 'font-size:150%;'>" + data.list[i].wind.deg + "</span> degrees" + "</li>");
+    	navigator.geolocation.getCurrentPosition(
+            function(position){//run this function if location is available.	
+                $.getJSON("http://api.openweathermap.org/data/2.5/forecast?lat=" + position.coords.latitude + "&lon=" + position.coords.longitude + "&units=metric&appid=ccaf6faaeacdea9f10abdff2f83b0e60", function(data){
+					$("#cityname").text(data.city.name + ", ");
+					$("#countrycode").text(data.city.country);
+					for(var i = 0; i < data.list.length; i ++){
+						list.append("<li><span style = 'font-size:200%;'>" + getDay(new Date(data.list[i].dt * 1000).getDay()) + "&nbsp;&nbsp;<span style = 'font-size:60%;'>" + new Date(data.list[i].dt * 1000).getHours() + ":" + zeroPrefix(new Date(data.list[i].dt * 1000).getMinutes()) + "</span>" + "</span>" + "</li>");
+						list.append("<li style = 'font-size:150%;'>" + data.list[i].weather[0].main + "/" + data.list[i].weather[0].description +  "</li>");
+						list.append("<li style = 'text-align:right;'>High <span style = 'font-size:200%;'>" + data.list[i].main.temp_max + " C</span>" + "</li>");
+						list.append("<li style = 'text-align:right;'>Low <span style = 'font-size:200%;'>" + data.list[i].main.temp_min + " C</span>" + "</li><br/>");
+						list.append("<li>Wind Speed > <span style = 'font-size:150%;'>" + data.list[i].wind.speed + "</span> m/s" + "</li>");
+						list.append("<li>Wind Direction > <span style = 'font-size:150%;'>" + data.list[i].wind.deg + "</span> degrees" + "</li>");
 
-								list.append("<p class = 'horizontalline'></p>");
-							}
-							saveLocation(data.city.name, data.city.country, data.city.id);
-							updateLocationList();
-						});
-                    },
-                    function(error){//show error message if an error is encountered.
-                        switch(error.code){
-                            case error.TIMEOUT:                                
-                                break;
-                            case error.POSITION_UNAVAILABLE:                                
-                                break;
-                            case error.PERMISSION_DENIED:
-                                break;
-                            case error.UNKNOWN_ERROR:
-                                break;
-                        }
-                    }
-                );
-            }
-            else{
-            	showMessage("Unable to determine your location. Make sure that location services is turned on.");
-            }
+						list.append("<p class = 'horizontalline'></p>");
+					}
+					saveLocation(data.city.name, data.city.country, data.city.id);
+					updateLocationList();
+				});
+            },
+           	function(error){//show error message if an error is encountered.
+                switch(error.code){
+                  	case error.TIMEOUT:                                
+                    break;
+                    case error.POSITION_UNAVAILABLE:                                
+                    break;
+                    case error.PERMISSION_DENIED:
+                    break;
+                    case error.UNKNOWN_ERROR:
+                    break;
+                }
+           	}
+        );
+    }
+    else{
+        showMessage("Unable to determine your location. Make sure that location services is turned on.");
+    }
 }
 
 /**
@@ -239,43 +218,22 @@ Display the five day weather forecast of a selected city by it's id.
 */
 function showWeatherById(id){
 	var list = $("#forecastlist");
-	if(navigator.geolocation){
-                navigator.geolocation.getCurrentPosition(
-                    function(position){//run this function if location is available.	
-                        $.getJSON("http://api.openweathermap.org/data/2.5/forecast?id=" + id + "&appid=2de143494c0b295cca9337e1e96b00e0", function(data){
-							$("#cityname").text(data.city.name + ", ");
-							$("#countrycode").text(data.city.country);
-							for(var i = 0; i < data.list.length; i ++){
-								list.append("<li><span style = 'font-size:200%;'>" + getDay(new Date(data.list[i].dt * 1000).getDay()) + "&nbsp;&nbsp;<span style = 'font-size:60%;'>" + new Date(data.list[i].dt * 1000).getHours() + ":" + zeroPrefix(new Date(data.list[i].dt * 1000).getMinutes()) + "</span>" + "</span>" + "</li>");
-								list.append("<li style = 'font-size:150%;'>" + data.list[i].weather[0].main + "/" + data.list[i].weather[0].description +  "</li>");
-								list.append("<li style = 'text-align:right;'>High <span style = 'font-size:200%;'>" + data.list[i].main.temp_max + " C</span>" + "</li>");
-								list.append("<li style = 'text-align:right;'>Low <span style = 'font-size:200%;'>" + data.list[i].main.temp_min + " C</span>" + "</li><br/>");
-								list.append("<li>Wind Speed > <span style = 'font-size:150%;'>" + data.list[i].wind.speed + "</span> m/s" + "</li>");
-								list.append("<li>Wind Direction > <span style = 'font-size:150%;'>" + data.list[i].wind.deg + "</span> degrees" + "</li>");
+    $.getJSON("http://api.openweathermap.org/data/2.5/forecast?id=" + id + "&appid=2de143494c0b295cca9337e1e96b00e0", function(data){
+		$("#cityname").text(data.city.name + ", ");
+		$("#countrycode").text(data.city.country);
+		for(var i = 0; i < data.list.length; i ++){
+			list.append("<li><span style = 'font-size:200%;'>" + getDay(new Date(data.list[i].dt * 1000).getDay()) + "&nbsp;&nbsp;<span style = 'font-size:60%;'>" + new Date(data.list[i].dt * 1000).getHours() + ":" + zeroPrefix(new Date(data.list[i].dt * 1000).getMinutes()) + "</span>" + "</span>" + "</li>");
+			list.append("<li style = 'font-size:150%;'>" + data.list[i].weather[0].main + "/" + data.list[i].weather[0].description +  "</li>");
+			list.append("<li style = 'text-align:right;'>High <span style = 'font-size:200%;'>" + data.list[i].main.temp_max + " C</span>" + "</li>");
+			list.append("<li style = 'text-align:right;'>Low <span style = 'font-size:200%;'>" + data.list[i].main.temp_min + " C</span>" + "</li><br/>");
+			list.append("<li>Wind Speed > <span style = 'font-size:150%;'>" + data.list[i].wind.speed + "</span> m/s" + "</li>");
+			list.append("<li>Wind Direction > <span style = 'font-size:150%;'>" + data.list[i].wind.deg + "</span> degrees" + "</li>");
 
-								list.append("<p class = 'horizontalline'></p>");
-							}
-							saveLocation(data.city.name, data.city.country, data.city.id);
-							updateLocationList();
-						});
-                    },
-                    function(error){//show error message if an error is encountered.
-                        switch(error.code){
-                            case error.TIMEOUT:                                
-                                break;
-                            case error.POSITION_UNAVAILABLE:                                
-                                break;
-                            case error.PERMISSION_DENIED:
-                                break;
-                            case error.UNKNOWN_ERROR:
-                                break;
-                        }
-                    }
-                );
-            }
-            else{
-            	showMessage("Unable to determine your location. Make sure that location services is turned on.");
-            }
+			list.append("<p class = 'horizontalline'></p>");
+		}
+		saveLocation(data.city.name, data.city.country, data.city.id);
+		updateLocationList();
+	});                   
 }
 
 /*
