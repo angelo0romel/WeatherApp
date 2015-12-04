@@ -9,24 +9,23 @@ var currentCity, currentCountry;
 var isLoggedIn = false;
 
 //Constructor definition for a location object that stores the city name, country code and id.
-var Location = function(cityName, countryCode, id){
+var Location = function(cityName, countryCode, cityID){
 	this.cityName = cityName;
 	this.countryCode = countryCode;
-	this.id = id;
+	this.cityID = cityID;
 };
 
 //Make sure that the document and all of it's components are successfuly loaded before making any reference.
 $(document).ready(function(){
 	//Initialize the page.
-	start();
-	initPage();	
+	initPage();
 	/*
 	Event Handlers:
 	*/
 	$("#currentlocation").click(function(){
 		clearPage();
 		showWeatherByGeoCoord();
-	});	
+	});
 
 	$("#btngetweather").click(function(){
 		currentCity = $("#selectedcity").val();
@@ -35,82 +34,27 @@ $(document).ready(function(){
 		showWeatherByCity();
 		$.mobile.changePage("#weather");
 	});
+
+	/*
+	Delete an item from the list that displays the locations.
+	*/
+	$(document).on("click", "a[name=delete]", function(){
+		removeFromCollection($(this).attr('id'));
+		$(this).parent().remove();
+		$('#locationlist').listview('refresh');
+	});
+
+	/*
+	Display the weather information of a city.
+	*/
+	$(document).on("click", "a[name=display]", function(){
+		//check if connected to internet, true = get weather by cityid, false = display weather from array.
+		clearPage();
+		showWeatherById($(this).attr('id'));
+	});
+
 });
-/*
-Function that will be called when the document is loaded.
-*/
-function start(){
-	//Update and display weather information if a weather location object exists in the local storage.
-	if(localStorage.getItem("weatherLocation") !== null){
-		loadWeather();
-	}
-	//Display weather information for the current location using geolocation latitude and longitude information.
-	else{
-		//current location
-	}
-}
-/*
-Loads data from local storage.
-*/
-function loadWeather(){
-	//Test if the weather and location array is not empty.
-	if(weatherLocationArray.length > 0){
-		if(weatherLocationArray[0] != "undefined" && weatherLocationArray[0] != "null"){
-			updateWeatherLocationList();
-		}
-		else{
-			//current location
-		}
-	}
-	else{
-		//current location
-	}
-}
 
-/*
-Update weather data objects.
-*/
-function updateLocalList(){
-	if(navigator.online){
-
-	}
-	else{
-		showMessage("Currently offline. Old weather information will be displayed. \
-			Please connect to the internet to get latest weather information.");
-	}
-}
-
-/*
-Update weather data objects.
-*/
-function updateOnlineList(){
-	if(navigator.online){
-
-	}
-	else{
-		showMessage("Currently offline. Old weather information will be displayed. \
-			Please connect to the internet to get latest weather information.");
-	}
-}
-
-/*
-Display weather data objects.
-*/
-function displayLocationList(){
-
-}
-
-/*
-Display weather information on current location.
-*/
-function displayCurrentLocation(){
-	if(navigator.online){
-
-	}
-	else{
-		showMessage("Currently offline. Please connect to the internet");
-	}
-}
 /*
 Method that displays an alert message on the page.
 	*/
@@ -136,7 +80,7 @@ function initPage(){
 		$("#logout").toggle(false);
 	}
 	/*
-	Populate list of countries for the selection drop-down. The list of countries and 
+	Populate list of countries for the selection drop-down. The list of countries and
 	their corresponding codes are in the js/countrysymbol.js file.
 	*/
 	var options = "";
@@ -172,11 +116,11 @@ function showWeatherByCity(){
 /*
 Display the five day weather forecast of a geolocation latitude and longitude.
 */
-function showWeatherByGeoCoord() {   
+function showWeatherByGeoCoord() {
 	var list = $("#forecastlist");
 	if(navigator.geolocation){
     	navigator.geolocation.getCurrentPosition(
-            function(position){//run this function if location is available.	
+            function(position){//run this function if location is available.
                 $.getJSON("http://api.openweathermap.org/data/2.5/forecast?lat=" + position.coords.latitude + "&lon=" + position.coords.longitude + "&units=metric&appid=ccaf6faaeacdea9f10abdff2f83b0e60", function(data){
 					$("#cityname").text(data.city.name + ", ");
 					$("#countrycode").text(data.city.country);
@@ -196,9 +140,9 @@ function showWeatherByGeoCoord() {
             },
            	function(error){//show error message if an error is encountered.
                 switch(error.code){
-                  	case error.TIMEOUT:                                
+                  	case error.TIMEOUT:
                     break;
-                    case error.POSITION_UNAVAILABLE:                                
+                    case error.POSITION_UNAVAILABLE:
                     break;
                     case error.PERMISSION_DENIED:
                     break;
@@ -216,9 +160,9 @@ function showWeatherByGeoCoord() {
 /**
 Display the five day weather forecast of a selected city by it's id.
 */
-function showWeatherById(id){
+function showWeatherById(id, updateList){
 	var list = $("#forecastlist");
-    $.getJSON("http://api.openweathermap.org/data/2.5/forecast?id=" + id + "&appid=2de143494c0b295cca9337e1e96b00e0", function(data){
+    $.getJSON("http://api.openweathermap.org/data/2.5/forecast?id=" + id + "&units=metric&appid=2de143494c0b295cca9337e1e96b00e0", function(data){
 		$("#cityname").text(data.city.name + ", ");
 		$("#countrycode").text(data.city.country);
 		for(var i = 0; i < data.list.length; i ++){
@@ -231,9 +175,11 @@ function showWeatherById(id){
 
 			list.append("<p class = 'horizontalline'></p>");
 		}
-		saveLocation(data.city.name, data.city.country, data.city.id);
-		updateLocationList();
-	});                   
+		if(updateList){
+			saveLocation(data.city.name, data.city.country, data.city.id);
+			updateLocationList();
+		}
+	});
 }
 
 /*
@@ -290,27 +236,49 @@ function clearPage(){
 /*
 Save a location in an array.
 */
-function saveLocation(cityName, countryCode){
-	//if (!isLocationSaved()){
-	var newLocation = new Location(cityName, countryCode);
-	locationArray.push(newLocation);
+function saveLocation(cityName, countryCode, cityID){
+	if(isLocationExists(cityID) == false){
+		var newLocation = new Location(cityName, countryCode, cityID);
+		locationArray.push(newLocation);
+	}
 }
 
 /*
-Update the list that displays the locations.
+Update the list view that displays the locations.
 */
 function updateLocationList(){
-	var locationList = $("#locationlist");
-	locationList.empty();
+	$("#locationlist").empty();
 	for(var i = 0; i < locationArray.length; i ++){
-		locationList.append("<li><a id = '' class = 'ui-btn'>" + locationArray[i].cityName + ", " + locationArray[i].countryCode + "</a></li>");
-		locationList.append("<li><a id = '' class = 'ui-btn ui-icon-delete ui-btn-icon-left'>" + "Remove " + locationArray[i].cityName + " from List" + "</a></li>");
+		//locationList.append("<li><a>" + locationArray[i].cityName + ", " + locationArray[i].countryCode + "</a><a></a></li>");
+		$("#locationlist").append('<li><a href="#weather" name = "display" data-rel = "close" id = "' + locationArray[i].cityID +
+															'">' + locationArray[i].cityName + ", " + locationArray[i].countryCode +
+															'</a><a name = "delete" data-icon = "delete" data-icon-post="notext" id = "' +
+															locationArray[i].cityID + '"></a></li>');
+		$("#locationlist").listview('refresh');
 	}
+
+}
+
+/*
+Remove a location object from the array that stores a collection of location objects.
+*/
+function removeFromCollection(cityID){
+	for(var i = 0; i < locationArray.length; i ++){
+		if(locationArray[i].cityID == cityID){
+			locationArray.splice(i, 1);
+		}
+	}//end for
 }
 
 /*
 Check if location is already saved. Returns true if it is, false otherwise.
 */
-function isLocationExists(){
-
+function isLocationExists(cityID){
+	var exists = false
+	for(var i = 0; i < locationArray.length; i ++){
+		if(locationArray[i].cityID == cityID){
+			exists = true;
+		}
+	}
+	return exists;
 }

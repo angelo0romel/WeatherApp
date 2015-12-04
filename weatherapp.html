@@ -25,11 +25,11 @@
 
 			<div data-role = "content">
 				<div>
-					<img src="img/yellow_sun.png" alt="yellow happy sun :)" class="centerHorizontal" />	
+					<img src="img/yellow_sun.png" alt="yellow happy sun :)" class="centerHorizontal" />
 					<br/>
 					<span style="text-align: center; display: block; margin-left: 10px; margin-right: 10px; font-size: 90%">
-						Pressing on the padlock icon will login you in to the Forecaster app so you can store and get your recent and saved locations across multiple devices including this one.		
-					</span>					
+						Pressing on the padlock icon will login you in to the Forecaster app so you can store and get your recent and saved locations across multiple devices including this one.
+					</span>
 				</div>
 			</div>
 
@@ -55,7 +55,7 @@
 				<p>
 					<form method = "post">
 						User Name
-						<input type = "text" />					
+						<input type = "text" />
 						Password
 						<input type = "password" />
 						<button type = "submit">Login</button>
@@ -104,8 +104,10 @@
 					<div style = "font-weight:normal;font-size:150%;">
 						My Locations:
 					</div>
-					<ul id = "locationlist" data-role = "list-view" style = "margin-left:auto;margin-right:auto;text-align:center;displat:block;">
-					</ul>					
+					<!--<ul id = "locationlist" data-role = "list-view" style = "margin-left:auto;margin-right:auto;text-align:center;displat:block;">-->
+					<ul id = "locationlist" data-role = "listview" data-inset = "true">
+						<!--locations will be added here.-->
+					</ul>
 				</p>
 			</div>
 
@@ -117,7 +119,7 @@
 			</div>
 
 			<div data-role = "content">
-				<div>					
+				<div>
 					<h1>
 						<span id = "cityname"></span>
 						<span id = "countrycode" style = "font-size: 70%;"></span>
@@ -128,7 +130,7 @@
 				</ul>
 			</div>
 
-			<div data-role = "footer" class = "centerBtn">				
+			<div data-role = "footer" class = "centerBtn">
 			</div>
 		</div>
 
@@ -140,10 +142,10 @@
 				</h1>
 			</div>
 
-			<div data-role = "content">				
-				<input id = "selectedcity" type = "search" placeholder = "Enter City Name">
+			<div data-role = "content">
 				<select name = "country" id = "countrylist" data-native-menu = "false" /></select>
-				<button id = "btngetweather" class="ui-btn ui-icon-check ui-btn-icon-left ui-corner-all">OK</button>  
+				<input id = "selectedcity" type = "search" placeholder = "Enter City Name">
+				<button id = "btngetweather" class="ui-btn ui-icon-check ui-btn-icon-left ui-corner-all">OK</button>
 			</div>
 		</div>
 

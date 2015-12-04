@@ -1,5 +1,5 @@
 li{
-	list-style-type: none;
+  list-style: none;
 }
 
 .ui-content, .ui-footer, .ui-panel{
@@ -13,7 +13,7 @@ li{
 
 .centerHorizontal{
    	display: block;
-    margin: auto; 
+    margin: auto;
    	height: 55%;
     width: 55%;
 }
@@ -36,13 +36,13 @@ li{
 }
 
 :-moz-placeholder { /* Firefox 18- */
-	 color: white;  
+	 color: white;
 }
 
 ::-moz-placeholder {  /* Firefox 19+ */
-	color: white;  
+	color: white;
 }
 
-:-ms-input-placeholder {  
-	color: white;  
+:-ms-input-placeholder {
+	color: white;
 }
