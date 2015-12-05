@@ -17,8 +17,6 @@ var Location = function(cityName, countryCode, cityID){
 
 //Make sure that the document and all of it's components are successfuly loaded before making any reference.
 $(document).ready(function(){
-	//Initialize the page.
-	initPage();
 	/*
 	Event Handlers:
 	*/
@@ -52,7 +50,8 @@ $(document).ready(function(){
 		clearPage();
 		showWeatherById($(this).attr('id'));
 	});
-
+	//Initialize the page.
+	initPage();
 });
 
 /*
@@ -88,6 +87,8 @@ function initPage(){
 		options += "<option value = '" + symbol + "'>" + countrySymbol[symbol] + "</option>"
 	}
 	$("#countrylist").html(options);
+	locationArray = JSON.parse(localStorage.getItem("locations"));
+	updateLocationList();
 }
 
 /**
@@ -101,7 +102,8 @@ function showWeatherByCity(){
 	for(var i = 0; i < data.list.length; i ++){
 		list.append("<li><span style = 'font-size:200%;'>" + getDay(new Date(data.list[i].dt * 1000).getDay()) + "&nbsp;&nbsp;<span style = 'font-size:60%;'>" + new Date(data.list[i].dt * 1000).getHours() + ":" + zeroPrefix(new Date(data.list[i].dt * 1000).getMinutes()) + "</span>" + "</span>" + "</li>");
 		list.append("<li style = 'font-size:150%;'>" + data.list[i].weather[0].main + "/" + data.list[i].weather[0].description +  "</li>");
-		list.append("<li style = 'text-align:right;'>High <span style = 'font-size:200%;'>" + data.list[i].main.temp_max + " C</span>" + "</li>");
+		list.append("<img src = 'img/" + data.list[i].weather[0].icon + ".png' />" +
+					"<li style = 'text-align:right;'>High <span style = 'font-size:200%;'>" + data.list[i].main.temp_max + " C</span>" + "</li>");
 		list.append("<li style = 'text-align:right;'>Low <span style = 'font-size:200%;'>" + data.list[i].main.temp_min + " C</span>" + "</li><br/>");
 		list.append("<li>Wind Speed > <span style = 'font-size:150%;'>" + data.list[i].wind.speed + "</span> m/s" + "</li>");
 		list.append("<li>Wind Direction > <span style = 'font-size:150%;'>" + data.list[i].wind.deg + "</span> degrees" + "</li>");
@@ -127,7 +129,9 @@ function showWeatherByGeoCoord() {
 					for(var i = 0; i < data.list.length; i ++){
 						list.append("<li><span style = 'font-size:200%;'>" + getDay(new Date(data.list[i].dt * 1000).getDay()) + "&nbsp;&nbsp;<span style = 'font-size:60%;'>" + new Date(data.list[i].dt * 1000).getHours() + ":" + zeroPrefix(new Date(data.list[i].dt * 1000).getMinutes()) + "</span>" + "</span>" + "</li>");
 						list.append("<li style = 'font-size:150%;'>" + data.list[i].weather[0].main + "/" + data.list[i].weather[0].description +  "</li>");
-						list.append("<li style = 'text-align:right;'>High <span style = 'font-size:200%;'>" + data.list[i].main.temp_max + " C</span>" + "</li>");
+						//list.append("<img src = 'img/" + data.list[i].weather[0].icon + ".png' />");
+						list.append("<img src = 'img/" + data.list[i].weather[0].icon + ".png' />" +
+									"<li style = 'text-align:right;'>High <span style = 'font-size:200%;'>" + data.list[i].main.temp_max + " C</span>" + "</li>");
 						list.append("<li style = 'text-align:right;'>Low <span style = 'font-size:200%;'>" + data.list[i].main.temp_min + " C</span>" + "</li><br/>");
 						list.append("<li>Wind Speed > <span style = 'font-size:150%;'>" + data.list[i].wind.speed + "</span> m/s" + "</li>");
 						list.append("<li>Wind Direction > <span style = 'font-size:150%;'>" + data.list[i].wind.deg + "</span> degrees" + "</li>");
@@ -168,7 +172,8 @@ function showWeatherById(id, updateList){
 		for(var i = 0; i < data.list.length; i ++){
 			list.append("<li><span style = 'font-size:200%;'>" + getDay(new Date(data.list[i].dt * 1000).getDay()) + "&nbsp;&nbsp;<span style = 'font-size:60%;'>" + new Date(data.list[i].dt * 1000).getHours() + ":" + zeroPrefix(new Date(data.list[i].dt * 1000).getMinutes()) + "</span>" + "</span>" + "</li>");
 			list.append("<li style = 'font-size:150%;'>" + data.list[i].weather[0].main + "/" + data.list[i].weather[0].description +  "</li>");
-			list.append("<li style = 'text-align:right;'>High <span style = 'font-size:200%;'>" + data.list[i].main.temp_max + " C</span>" + "</li>");
+			list.append("<img src = 'img/" + data.list[i].weather[0].icon + ".png' />" +
+						"<li style = 'text-align:right;'>High <span style = 'font-size:200%;'>" + data.list[i].main.temp_max + " C</span>" + "</li>");
 			list.append("<li style = 'text-align:right;'>Low <span style = 'font-size:200%;'>" + data.list[i].main.temp_min + " C</span>" + "</li><br/>");
 			list.append("<li>Wind Speed > <span style = 'font-size:150%;'>" + data.list[i].wind.speed + "</span> m/s" + "</li>");
 			list.append("<li>Wind Direction > <span style = 'font-size:150%;'>" + data.list[i].wind.deg + "</span> degrees" + "</li>");
@@ -240,6 +245,7 @@ function saveLocation(cityName, countryCode, cityID){
 	if(isLocationExists(cityID) == false){
 		var newLocation = new Location(cityName, countryCode, cityID);
 		locationArray.push(newLocation);
+		localStorage.setItem("locations", JSON.stringify(locationArray));
 	}
 }
 
@@ -249,14 +255,12 @@ Update the list view that displays the locations.
 function updateLocationList(){
 	$("#locationlist").empty();
 	for(var i = 0; i < locationArray.length; i ++){
-		//locationList.append("<li><a>" + locationArray[i].cityName + ", " + locationArray[i].countryCode + "</a><a></a></li>");
 		$("#locationlist").append('<li><a href="#weather" name = "display" data-rel = "close" id = "' + locationArray[i].cityID +
 															'">' + locationArray[i].cityName + ", " + locationArray[i].countryCode +
 															'</a><a name = "delete" data-icon = "delete" data-icon-post="notext" id = "' +
 															locationArray[i].cityID + '"></a></li>');
-		$("#locationlist").listview('refresh');
 	}
-
+	$("#locationlist").listview('refresh');
 }
 
 /*
@@ -268,6 +272,7 @@ function removeFromCollection(cityID){
 			locationArray.splice(i, 1);
 		}
 	}//end for
+	localStorage.setItem("locations", JSON.stringify(locationArray));
 }
 
 /*
