@@ -1,17 +1,18 @@
+<!--Author: B00285812-->
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta name = "viewport" content = "initial-scale = 1" />
 		<meta name = "author" content = "Angelo Romel Lopez(B00285812)" />
-		<!--<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />-->
-		<link rel="stylesheet" href="css/angelo_ice_blue.min.css" />
-		<link rel="stylesheet" href="css/jquery.mobile.icons.min.css" />
-		<link rel="stylesheet" href="css/angelostruct.css" />
-        <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-        <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-        <script src="js/mainscript.js"></script>
-        <script src="js/countrysymbol.js"></script>
-        <link rel = "stylesheet" href = "css/mainstyle.css" />
+		<link rel="stylesheet" href="css/angelo_ice_blue.min.css" /><!--Custom theme CSS-->
+		<link rel="stylesheet" href="css/jquery.mobile.icons.min.css" /><!--JQuery Mobile CSS-->
+		<link rel="stylesheet" href="css/angelostruct.css" /><!--Structure for the custom theme.-->
+        <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script><!--JQuery library-->
+        <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script><!--JQuery Mobile library-->
+		<script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script><!--Firebase library-->
+        <script src="js/mainscript.js"></script><!--Main script-->
+        <script src="js/countrysymbol.js"></script><!--Country code list-->
+        <link rel = "stylesheet" href = "css/mainstyle.css" /><!--Main CSS-->
 	</head>
 
 	<body>
@@ -53,14 +54,15 @@
 
 			<div data-role = "content">
 				<p>
-					<form method = "post">
-						User Name
-						<input type = "text" />
-						Password
-						<input type = "password" />
-						<button type = "submit">Login</button>
-					</form>
+					User Name
+					<input id = "eusername" type = "text" />
+					Password
+					<input id = "epassword" type = "password" />
+					<button id = "btnlogin" type = "submit">Login</button>
 				</p>
+				<a href="#register" class = "ui-btn">
+					Register a New Account
+				</a>
 			</div>
 
 			<div data-role = "footer" data-position = "fixed" class = "centerBtn">
@@ -146,6 +148,26 @@
 				<select name = "country" id = "countrylist" data-native-menu = "false" /></select>
 				<input id = "selectedcity" type = "search" placeholder = "Enter City Name">
 				<button id = "btngetweather" class="ui-btn ui-icon-check ui-btn-icon-left ui-corner-all">OK</button>
+			</div>
+		</div>
+
+		<!--Register new account page-->
+		<div data-role = "page" id = "register">
+			<div data-role = "header" style = "background-color: #FFFFFF;color: #515354; text-shadow: none;">
+				<h1>
+					Register
+				</h1>
+			</div>
+
+			<div data-role = "content">
+				Choose a username
+				<input id = "newusername" type = "text">
+				Enter your password
+				<input id = "newpassword" type = "password">
+				Confirm your password
+				<input id = "confirmpassword" type = "password"><br/>
+				<button id = "btnregisteruser" class = "ui-btn">Submit</button>
+				<a id = "btncancelregisteruser" href = "#main" class = "ui-btn">Cancel</a>
 			</div>
 		</div>
 
