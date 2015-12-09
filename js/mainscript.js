@@ -211,6 +211,7 @@ Display the five day weather forecast of a selected city by it's id.
 @param {string} id - The id of the selected city.
 */
 function showWeatherById(id){
+	clearPage();
 	var list = $("#forecastlist");
     $.getJSON("http://api.openweathermap.org/data/2.5/forecast?id=" + id + "&units=metric&appid=2de143494c0b295cca9337e1e96b00e0", function(data){
 		$("#cityname").text(data.city.name + ", ");
